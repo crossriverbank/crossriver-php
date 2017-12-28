@@ -39,10 +39,10 @@ class ScenariosTest extends \PHPUnit_Framework_TestCase
 
         date_default_timezone_set("UTC");
 
-        $username = getenv("CROSSRIVERBANK_ADMIN_USERNAME");
-        $password = getenv("CROSSRIVERBANK_ADMIN_PASSWORD");
+        // $username = getenv("CROSSRIVERBANK_ADMIN_USERNAME");
+        // $password = getenv("CROSSRIVERBANK_ADMIN_PASSWORD");
 
-        Settings::configure(["username" => $username, "password" => $password ]);
+        Settings::configure(["username" => "US4xkWGRBVqbjLvTrQvF7o3C", "password" => "8ea15723-e470-48e2-97a9-0433924400ba"]);
 
         $this->user = Fixtures::createAdminUser();
 
