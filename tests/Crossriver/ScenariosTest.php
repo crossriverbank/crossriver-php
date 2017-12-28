@@ -38,7 +38,11 @@ class ScenariosTest extends \PHPUnit_Framework_TestCase
         $this->receiptImage = realpath("../../data/receipt.jpg");
 
         date_default_timezone_set("UTC");
-        Settings::configure(["username" => ENV['CROSSRIVERBANK_ADMIN_USERNAME'], "password" => ENV['CROSSRIVERBANK_ADMIN_USERNAME']]);
+
+        $username = .$_ENV['CROSSRIVERBANK_ADMIN_USERNAME']
+        $password = .$_ENV['CROSSRIVERBANK_ADMIN_USERNAME']
+
+        Settings::configure(["username" => $username, "password" => $password ]);
 
         $this->user = Fixtures::createAdminUser();
 
