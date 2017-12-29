@@ -132,15 +132,11 @@ class ScenariosTest extends \PHPUnit_Framework_TestCase
     public function testDebitTransfer() {
         $transfer = Fixtures::createTransfer([
             "identity" => $this->card->identity,
-            "amount" => Fixtures::$disputeAmount,
+            "amount" => 2000,
             "source" => $this->card->id,
             "tags" => ["_source" => "php_client"]
         ]);
         self::assertEquals($transfer->state, "PENDING", "Transfer not in pending state");
-        Fixtures::waitFor(function () use ($transfer) {
-            $transfer->refresh();
-            return $transfer->state == "SUCCEEDED";
-        });
         return $transfer;
     }
 
@@ -158,7 +154,7 @@ class ScenariosTest extends \PHPUnit_Framework_TestCase
     {
         $transfer = $this->testDebitTransfer();
         $transfer = $transfer->reverse(50);
-        self::assertEquals($transfer->state, "PENDING", "Reverse not in pending state");
+        self::assertEquals($transfer->state, "SUCCEEDED", "Reverse is in succeeded state");
     }
 
     public function testVoidAuthorization()
@@ -183,8 +179,8 @@ class ScenariosTest extends \PHPUnit_Framework_TestCase
         ]);
 
         Fixtures::waitFor(function () use ($transfer1, $transfer2) {
-            $transfer1 = $transfer1->refresh();
-            $transfer2 = $transfer2->refresh();
+              $transfer1 = $transfer1->refresh();
+              $transfer2 = $transfer2->refresh();
 
             return $transfer1->state == "SUCCEEDED" and
                 $transfer2->state == "SUCCEEDED" and
